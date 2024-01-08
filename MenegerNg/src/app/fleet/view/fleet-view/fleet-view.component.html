@@ -1,0 +1,52 @@
+<article *ngIf="fleet">
+  <header><h2>{{fleet.fleetName}}</h2></header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="row mb-2">
+          <div class="col-6">
+            Profit:
+            <span>{{fleet.profit}}</span>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-6">
+            Id:
+            <span>{{fleet.id}}</span>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-6">
+            Country of origin:
+            <span>{{fleet.countryOfOrigin}}</span>
+          </div>
+        </div>
+        <div class="row mb-2">
+          <div class="col-6">
+            Ships:
+            <table *ngIf="ships">
+              <tbody>
+              <tr *ngFor="let ship of ships.ships">
+                <td> - {{ship.name}}</td>
+                <td>
+                  <a [routerLink]="['/fleets/'+ship.fleet+'/ships', ship.id]">View</a>
+                </td>
+                <td>
+                  <a [routerLink]="['/fleets/'+ship.fleet+'/ships', ship.id, 'edit']">Edit</a>
+                </td>
+                <td>
+                  <button (click)="onDelete(ship)">Delete</button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <a [routerLink]="['/fleets',fleet.id,'ships','create']">Create new ship</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

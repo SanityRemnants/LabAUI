@@ -1,0 +1,69 @@
+
+services:
+  ship-db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_DB: "ship_db"
+      POSTGRES_USER: "ship_user"
+      POSTGRES_PASSWORD: "ship_password"
+    volumes:
+      - ship-db-data:/var/lib/postgresql/data
+
+  fleet-db:
+    image: postgres:16.1
+    restart: always
+    environment:
+      POSTGRES_DB: "fleet_db"
+      POSTGRES_USER: "fleet_user"
+      POSTGRES_PASSWORD: "fleet_password"
+    volumes:
+      - fleet-db-data:/var/lib/postgresql/data
+
+  fleet-meneger-ship:
+    image: aui-ship-image
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://ship-db:5432/ship_db"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
+      SPRING_DATASOURCE_USERNAME: "ship_user"
+      SPRING_DATASOURCE_PASSWORD: "ship_password"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+
+
+  fleet-meneger-fleet:
+    image: aui-fleet-image
+    restart: always
+    depends_on: 
+      fleet-meneger-ship:
+        condition: service_started
+      fleet-db:
+        condition: service_started
+    environment:
+      MENEGER_SHIP_URL: "http://fleet-meneger-ship:8080"
+      SPRING_DATASOURCE_URL: "jdbc:postgresql://fleet-db:5432/fleet_db"
+      SPRING_DATASOURCE_DRIVERCLASSNAME: "org.postgresql.Driver"
+      SPRING_DATASOURCE_USERNAME: "fleet_user"
+      SPRING_DATASOURCE_PASSWORD: "fleet_password"
+      SPRING_JPA_DATABASE_PLATFORM: "org.hibernate.dialect.PostgreSQLDialect"
+
+  fleet-meneger-gateway:
+    image: aui-gateway-image
+    restart: always
+    environment:
+      MENEGER_SHIP_URL: "http://fleet-meneger-ship:8080"
+      MENEGER_FLEET_URL: "http://fleet-meneger-fleet:8080"
+      MENEGER_GATEWAY_HOST: "fleet-meneger-gateway:8080"
+
+  meneger-ng:
+    image: aui-image
+    restart: always
+    environment:
+      API_URL: http://fleet-meneger-gateway:8080/api
+    ports:
+      - "8087:80"
+
+
+volumes:
+  fleet-db-data:
+  ship-db-data:

@@ -1,0 +1,30 @@
+<article *ngIf="ship">
+  <header><h2>{{ship.name}}</h2></header>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <div class="row mb-2">
+          <div class="col-6">
+            Displacement:
+            <span>{{ship.displacement}}</span>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-6">
+            Id:
+            <span>{{ship.id}}</span>
+          </div>
+        </div>
+
+        <div class="row mb-2">
+          <div class="col-6">
+            Fleet:
+            <span>{{ship.fleet.fleetName}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

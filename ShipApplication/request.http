@@ -1,0 +1,50 @@
+### get all ships
+GET http://localhost:8081/api/ships
+### get ship with id
+GET http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00a5
+### get ship not existing
+GET http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00a1
+### get all ships of specified fleet
+GET http://localhost:8081/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a1/ships
+### get all ships of non existent fleet
+GET http://localhost:8081/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a5/ships
+### create new ship
+PUT http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00b1
+Content-Type: application/json
+
+{
+"name":"SV sailer",
+"displacement":1000,
+"fleet":"c4804e0f-769e-4ab9-9ebe-0578fb4f00a4"
+}
+### create new ship in non existent fleet
+PUT http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00b3
+Content-Type: application/json
+
+{
+  "name":"SV sailer2",
+  "displacement":100,
+  "fleet":"c4804e0f-769e-4ab9-9ebe-0578fb4f00a6"
+}
+### get all ships of empty fleet
+GET http://localhost:8081/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a3/ships
+### update ship
+PATCH http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00b1
+Content-Type: application/json
+
+{
+  "name": "SV sailer3",
+  "displacement": 2000
+}
+### update non existent ship
+PATCH http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00c9
+Content-Type: application/json
+
+{
+  "name": "SV sailer",
+  "displacement": 2000
+}
+### delete ship
+DELETE http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00a5
+### delete non existent ship
+DELETE http://localhost:8081/api/ships/c4804e0f-769e-4ab9-9ebe-0578fb4f00d9

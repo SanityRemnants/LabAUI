@@ -1,0 +1,37 @@
+### get all fleets
+GET http://localhost:8082/api/fleets
+### get specific fleet
+GET http://localhost:8082/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a1
+### get non existent fleet
+GET http://localhost:8082/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6
+### create new fleet
+PUT http://localhost:8082/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a5
+Content-Type: application/json
+
+{
+  "fleetName":"central",
+  "countryOfOrigin": "Poland",
+  "profit":1203
+}
+### update fleet
+PATCH http://localhost:8082/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a5
+Content-Type: application/json
+
+{
+  "fleetName":"non",
+  "countryOfOrigin": "America",
+  "profit":12030
+}
+### update non existent fleet
+PATCH http://localhost:8082/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00c9
+Content-Type: application/json
+
+{
+  "fleetName":"Western",
+  "countryOfOrigin": "America",
+  "profit":12030
+}
+### delete fleet
+DELETE http://localhost:8082/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a1
+### delete non existent fleet
+DELETE http://localhost:8082/api/fleets/c4804e0f-769e-4ab9-9ebe-0578fb4f00a6
